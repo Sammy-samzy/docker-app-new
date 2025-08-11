@@ -4,19 +4,16 @@ FROM node:18-alpine
 # Set working directory inside container
 WORKDIR /app
 
-# Copy package.json and package-lock.json first (for better caching)
+# Copy package.json and package-lock.json (if present)
 COPY package*.json ./
-
-# Copy the environment file
-COPY .env ./
 
 # Install dependencies
 RUN npm install
 
-# Copy the rest of your app files
+# Copy all app files including .env
 COPY . .
 
-# Build the Next.js app (this will use env vars from .env)
+# Build the Next.js app (env variables available from .env)
 RUN npm run build
 
 # Expose port 3000 (default for Next.js)
