@@ -6,12 +6,12 @@ x-logging: &x-logging
       max-size: '10m'
 services:
   frontend:
-  build: 
-  context: ../frontend
-  ports:
-    - "3000:3000"
-  depends_on:
-    - appwrite
+    build:
+      context: ../frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - appwrite
   traefik:
     image: traefik:2.11
     container_name: appwrite-traefik
