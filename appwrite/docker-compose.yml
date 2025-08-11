@@ -6,7 +6,8 @@ x-logging: &x-logging
       max-size: '10m'
 services:
   frontend:
-  image: sammysamzy/appwrite-frontend:latest
+  build: 
+  context: ../frontend
   ports:
     - "3000:3000"
   depends_on:
