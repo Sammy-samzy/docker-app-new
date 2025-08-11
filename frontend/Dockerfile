@@ -10,10 +10,10 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
-# Copy the rest of the app code
+# Copy all app files including .env
 COPY . .
 
-# Build the Next.js app
+# Build the Next.js app (env variables available from .env)
 RUN npm run build
 
 # Expose port 3000 (default for Next.js)
