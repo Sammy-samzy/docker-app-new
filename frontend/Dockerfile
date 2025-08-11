@@ -1,23 +1,30 @@
-# Use official Node.js image as the base
 FROM node:18-alpine
 
-# Set working directory inside container
+# Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json (if present)
+# Copy package.json files first
 COPY package*.json ./
 
 # Install dependencies
 RUN npm install
 
-# Copy all app files including .env
+# Accept build arguments
+ARG NEXT_PUBLIC_APPWRITE_ENDPOINT
+ARG NEXT_PUBLIC_APPWRITE_PROJECT
+
+# Make them available as environment variables
+ENV NEXT_PUBLIC_APPWRITE_ENDPOINT=$NEXT_PUBLIC_APPWRITE_ENDPOINT
+ENV NEXT_PUBLIC_APPWRITE_PROJECT=$NEXT_PUBLIC_APPWRITE_PROJECT
+
+# Copy the rest of the files
 COPY . .
 
-# Build the Next.js app (env variables available from .env)
+# Build the Next.js app
 RUN npm run build
 
-# Expose port 3000 (default for Next.js)
+# Expose port 3000
 EXPOSE 3000
 
-# Start the Next.js app in production mode
+# Start the app
 CMD ["npm", "start"]

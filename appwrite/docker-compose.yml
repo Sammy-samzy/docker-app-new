@@ -1,3 +1,5 @@
+version: 3.8
+
 x-logging: &x-logging
   logging:
     driver: 'json-file'
@@ -7,9 +9,15 @@ x-logging: &x-logging
 services:
   frontend:
     build:
-      context: ../frontend
+      context: ./frontend
+      args:
+        NEXT_PUBLIC_APPWRITE_ENDPOINT: https://your-appwrite-server.com/v1
+        NEXT_PUBLIC_APPWRITE_PROJECT: your_project_id
     ports:
       - "3000:3000"
+    environment:
+      NEXT_PUBLIC_APPWRITE_ENDPOINT: https://your-appwrite-server.com/v1
+      NEXT_PUBLIC_APPWRITE_PROJECT: your_project_id
     depends_on:
       - appwrite
   traefik:
